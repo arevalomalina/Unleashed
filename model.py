@@ -24,7 +24,8 @@ class User(Base):
 	last_name= Column(String(64), nullable=True)
 	telephone= Column(String(64), nullable=True)
 	address= Column(String(64), nullable=True)
-	ICE= Column(String(64), nullable=True)
+	ICE_name= Column(String(64), nullable=True)
+	ICE_phone= Column(String(64), nullable=True)
 	email = Column(String(64), nullable=True)
 	password = Column(String(64), nullable=True)
 
