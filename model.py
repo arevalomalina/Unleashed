@@ -2,7 +2,7 @@ from sqlalchemy.orm import relationship, backref
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Date
 
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -33,6 +33,8 @@ class Appointment(Base):
 	__tablename__ = "appointments"
 
 	id = Column(Integer, primary_key =True)
+	date = Column(Date, nullable=False)
+	time_slot = Column(String(64), nullable=False)
 
 	"""not completely sure what information I need to collect here."""
 

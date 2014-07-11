@@ -1,0 +1,31 @@
+<html>
+  <head>
+      <script type="text/javascript" src="/static/prototype.js"></script>
+      <script type="text/javascript" src="/static/calendarview.js"></script>
+      <script type="text/javascript">
+        window.onload = function() {
+          Calendar.setup({
+            dateField      : 'date',
+            triggerElement : 'calendarButton'
+          })
+        }
+      </script>
+      <link rel="stylesheet" type ="text/css" href="/static/css/calendar.css">
+  </head>
+<body>
+    <div class="Calendar">
+    <form action= "/book" class="form-signin" method="POST">
+    <input type="text" name="date" id="date" />
+    <input type="button" id="calendarButton" value="Choose Date"/>
+    </div>
+    <h3>Choose Time Slot</h3>
+<select name="time_slots">
+<option value="morning">Morning</option>
+<option value="midday">Midday</option>
+<option value="afternoon">Afternoon</option>
+</select>
+<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button></h3>
+</form>
+</body>
+</form>
+</html>
