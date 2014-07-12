@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request
 import model
 import hashlib
 import datetime
+import stripe
 
 app = Flask(__name__)
 @app.route("/")
@@ -67,7 +68,29 @@ def appointment_book():
 
 	model.session.add(new_appt)
 	model.session.commit()
-	return redirect('/')
+	return redirect('/payment')
+
+@app.route('/payment', methods=['GET'])
+def get_card():
+	return render_template("payment.html")
+
+@app.route('/payment', methods=['POST'])
+def payment():
+	stripe.api_key = ""
+	token = request.form.get('stripeToken')
+
+	try:
+  		charge = stripe.Charge.create(
+     		amount=1000, # amount in cents, again
+      		currency="usd",
+      		card=token,
+      		description="payinguser@example.com")
+
+	except stripe.CardError, e:
+		return "error"
+  # The card has been declined
+  		pass
+	return "success"
 
 
 def sha1(str):
