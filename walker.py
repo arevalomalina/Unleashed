@@ -17,7 +17,6 @@ def view_form():
 
 @app.route("/login", methods=['GET'])
 def login():
-    print "MADE IT"
     return render_template("login.html")
 
 @app.route("/login", methods=['POST'])
@@ -26,7 +25,6 @@ def login_post():
     if user is not None:
         user_id = request.cookies.get('user_id')
         resp = make_response(redirect('/profile'))
-        print user.id
         resp.set_cookie('user_id', str(user.id))
         return resp
     else:
@@ -116,6 +114,13 @@ def send_photo():
     pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))
     model.update_profile_pic(filename, user_id)
     return redirect ('/profile')
+
+@app.route('/logout')
+def logout():
+    user_id = request.cookies.get('user_id')
+    resp = make_response(redirect('/'))
+    resp.set_cookie('user_id', expires=0)
+    return resp
 
 
 def sha1(str):

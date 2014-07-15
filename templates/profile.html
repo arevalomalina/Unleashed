@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block body %}
 <h1>User Profile</h1>
 <h2>Welcome {{ display_user.first_name }}</h2>
 <form action= "/book" class="form-book" method="GET">
@@ -13,3 +15,4 @@
     </p>
 </form>
 {% endif %}
+{% endblock %}
