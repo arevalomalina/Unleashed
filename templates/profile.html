@@ -1,1 +1,15 @@
-<h1>Success</h1>
+<h1>User Profile</h1>
+<h2>Welcome {{ display_user.first_name }}</h2>
+<form action= "/book" class="form-book" method="GET">
+<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button></h3>
+</form>
+{% if display_user.profile_pic %}
+<img src = "/static/img/{{display_user.profile_pic}}">
+{% else %}
+<img src = "/static/img/no-image.gif">
+<form action= "/photo_upload" class="form-profile_pic" method="POST" enctype="multipart/form-data">
+    <p><input type="file" name="file">
+       <input type="submit" value="Upload">
+    </p>
+</form>
+{% endif %}

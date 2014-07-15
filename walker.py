@@ -1,10 +1,12 @@
 from flask import Flask, render_template, redirect, request, make_response
 import model
 import hashlib
-import datetime
+import datetime, os
 import stripe
+import jinja2
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = "/Users/Malina/src/walker_webapp/static/img"
 @app.route("/")
 def land():
     return render_template("landing.html")
@@ -15,12 +17,14 @@ def view_form():
 
 @app.route("/login", methods=['GET'])
 def login():
+    print "MADE IT"
     return render_template("login.html")
 
 @app.route("/login", methods=['POST'])
 def login_post():
     user = model.session.query(model.User).filter_by(email = request.form['Email']).filter_by(password = sha1(request.form['Password'])).first()
     if user is not None:
+        user_id = request.cookies.get('user_id')
         resp = make_response(redirect('/profile'))
         print user.id
         resp.set_cookie('user_id', str(user.id))
@@ -98,11 +102,21 @@ def payment():
 @app.route('/profile')
 def user_profile():
     user_id = request.cookies.get('user_id')
-    print user_id
+    user = model.get_user_by_id(user_id)
     if model.User.query.get(user_id) is not None:
-        return render_template('profile.html')
+        return render_template('profile.html', display_user = user)
     else:
         redirect('/login')
+
+@app.route('/photo_upload', methods=['POST'])
+def send_photo():
+    user_id = request.cookies.get('user_id')
+    pic = request.files['file']
+    filename = "%s_%s" % (user_id, pic.filename)
+    pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))
+    model.update_profile_pic(filename, user_id)
+    return redirect ('/profile')
+
 
 def sha1(str):
     sha1 = hashlib.sha1()
