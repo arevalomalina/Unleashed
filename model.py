@@ -50,6 +50,7 @@ class Dog(Base):
     age = Column(String(64), nullable=True)
     gender = Column(String(64), nullable=True)
     weight = Column(String(64), nullable=True)
+    nickname = Column(String(64), nullable=False)
 
     vet = relationship("Veterinarian",
         backref=backref("dogs", order_by=id))

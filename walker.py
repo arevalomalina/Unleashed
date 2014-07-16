@@ -46,7 +46,8 @@ def register():
                         breed=request.form['Dog_Breed'],
                         age=request.form['Age'],
                         gender=request.form['Gender'],
-                        weight=request.form['Weight'])
+                        weight=request.form['Weight'],
+                        nickname=request.form['Nickname'])
 
     new_vet = model.Veterinarian(first_name=request.form['vet_name_first'],
                                 last_name=request.form['vet_name_last'],
