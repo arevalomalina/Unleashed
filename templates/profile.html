@@ -23,6 +23,15 @@
   type='text/javascript' charset='utf-8'></script>
   <script type="text/javascript" src="/static/instagram.js"></script>
 
+  <script>
+    var nickname_tags = [];
+
+    {% for nickname in nicknames %}
+      nickname_tags.push('{{ nickname }}'.toLowerCase());
+    {% endfor %}
+
+    Instagram.search(nickname_tags);
+  </script>
 </head>
 <body>
 

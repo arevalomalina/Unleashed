@@ -54,9 +54,12 @@ def register():
                                 address=request.form['address'],
                                 telephone=request.form['telephone'])
 
+    user_dog = model.User_Dog(dog=new_dog, user=new_user)
+
     model.session.add(new_user)
     model.session.add(new_dog)
     model.session.add(new_vet)
+    model.session.add(user_dog)
     model.session.commit()
 
     return redirect('/login')
@@ -103,7 +106,13 @@ def user_profile():
     user_id = request.cookies.get('user_id')
     user = model.get_user_by_id(user_id)
     if model.User.query.get(user_id) is not None:
-        return render_template('profile.html', display_user = user)
+        user_dogs = model.session.query(model.User_Dog).filter_by(user_id=user.id)
+        nicknames = []
+        for user_dog in user_dogs:
+            dog = model.session.query(model.Dog).get(user_dog.dog_id)
+            nicknames.append(dog.nickname)
+
+        return render_template('profile.html', display_user = user, nicknames = nicknames)
     else:
         redirect('/login')
 

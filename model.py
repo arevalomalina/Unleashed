@@ -81,7 +81,7 @@ class User_Dog(Base):
         backref=backref("user_dogs", order_by=id))
 
     dog = relationship("Dog",
-        backref=backref("user_dogs", order_by=id))
+        backref=backref("dog_users", order_by=id))
 
 class Veterinarian(Base):
     __tablename__ = "veterinarians"
