@@ -1,11 +1,63 @@
 <html>
-<h1>Hey Buddy</h1>
-<form action= "/login" class="form-signin" method="GET">
-<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Login</button></h3>
-</form>
-<form action= "/register" class="form-register" method="GET">
-<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button><h3>
-</form>
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/cover.css">
+        <title>SF City Dog Walks</title>
+        <style>
+            body {
+                background-image: url("/static/img/alamo.jpg");
+                background-size: cover;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+            }
+
+            div.inner.cover img {
+                width: 150px;
+            }
+        </style>
+    </head>
+    <body>
+
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+<!--
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Cover</h3>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          -->
+          <div class="inner cover">
+              <img src="/static/img/sfdogwalklogo.jpg">
+              <h1 class="cover-heading">SF City Dog Walks</h1>
+            <p class="lead">Dog Walkers and Sitters You Can Trust.
+            <p class="lead">
+            <a href="/register" class="btn btn-lg btn-default">Sign Up</a>
+            <a href="/login" class="btn btn-lg btn-default">Sign In</a>
+            </p>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+                <p>I might put some stuff down here.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    </body>
 </html>
 
 
