@@ -1,4 +1,4 @@
-alert ("TOP");// Instantiate empty objects.
+// Instantiate empty objects.
 var Instagram = {};
 
 (function(){
@@ -20,9 +20,30 @@ var Instagram = {};
     });
   }
 
+  function filter_by_tag(tag, data) {
+    var filtered_data;
+    // do filtering here
+    debugger
+
+
+    toScreen(filtered_data)
+  }
+
   function search(tag){
-    var url = "https://api.instagram.com/v1/tags/" + tag + "/media/recent?callback=?&client_id=aaf7cad994bd4ef293ed4ab24f2f6627";
-    $.getJSON(url, toScreen);
+    var url = "https://api.instagram.com/v1/users/180860648/media/recent?callback=?&client_id=aaf7cad994bd4ef293ed4ab24f2f6627" + tag + "/media/recent?callback=?&client_id=aaf7cad994bd4ef293ed4ab24f2f6627";
+    // $.ajax({
+    //   type: 'GET',
+    //   url: url,
+    //   dataType: 'jsonp',
+    //   async: false,
+    //   contentType: "application/json",
+    //   success: function(data) {
+    //     alert("hi");
+    //   }
+    // });
+    $.getJSON(url, function (response) { 
+      filter_by_tag(tag, response.data)
+    });
   }
 
 
@@ -30,4 +51,3 @@ var Instagram = {};
 })();
 
 Instagram.search('barkcam');
-alert ("botton");
