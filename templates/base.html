@@ -1,4 +1,22 @@
 <html>
+	 <a href="http://jquery.com/"></a>
+    <script src="jquery.js"></script>
+    <script>
+ 	// Using validation to check for the presence of an input
+	$( "#form" ).submit(function( event ) {
+    // if .required's value's length is zero
+    if ( $( ".required" ).val().length === 0 ) {
+        // usually show some kind of error message here
+ 
+        // this prevents the form from submitting
+        return false;
+    } else {
+        // run $.ajax here
+    }
+});
+    // Your code goes here.
+ 
+    </script>
     <head>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/static/css/style.css" />
@@ -33,4 +51,4 @@
 
 {% block body %}
 {% endblock %}
-</html?
+</html>

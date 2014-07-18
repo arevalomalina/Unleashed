@@ -30,7 +30,7 @@ var my_tags = [];
       // the photo object and returns markup
       // ready for display.
       try{ 
-        photo_html = "<img src='"+ photo.images.low_resolution.url + "' />";
+        photo_html = "<img width=200 height= 200 border=100 black src='"+ photo.images.low_resolution.url + "' />";
         $('div#photos-wrap').append(photo_html);
       }catch(err){
         console.warn("photo won't load", photo.images.low_resolution.url);

@@ -20,14 +20,14 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key =True)
-    first_name = Column(String(64), nullable=True)
-    last_name= Column(String(64), nullable=True)
-    telephone= Column(String(64), nullable=True)
-    address= Column(String(64), nullable=True)
-    ICE_name= Column(String(64), nullable=True)
-    ICE_phone= Column(String(64), nullable=True)
-    email = Column(String(64), nullable=True)
-    password = Column(String(64), nullable=True)
+    first_name = Column(String(64), nullable=False)
+    last_name= Column(String(64), nullable=False)
+    telephone= Column(String(64), nullable=False)
+    address= Column(String(64), nullable=False)
+    ICE_name= Column(String(64), nullable=False)
+    ICE_phone= Column(String(64), nullable=False)
+    email = Column(String(64), nullable=False)
+    password = Column(String(64), nullable=False)
     profile_pic = Column(String(64), nullable=True)
 
 class Appointment(Base):
@@ -50,7 +50,7 @@ class Dog(Base):
     age = Column(String(64), nullable=True)
     gender = Column(String(64), nullable=True)
     weight = Column(String(64), nullable=True)
-    nickname = Column(String(64), nullable=False)
+    nickname = Column(String(64), nullable=False, unique=True)
 
     vet = relationship("Veterinarian",
         backref=backref("dogs", order_by=id))

@@ -1,41 +1,6 @@
-{% extends 'base.html' %}
-{% block body %}
 <html>
-<head>
-  <body>
-    <h2>{{ display_user.first_name }} {{ display_user.last_name }}</h2>
-    <form action= "/book" class="form-profile" method="GET">
-    {% if display_user.profile_pic %}
-        <div><img width=200 height=200 src = "/static/img/{{display_user.profile_pic}} "></div>
-    {% else %}
-        <img src = "/static/img/no-image.gif">
-        <form action= "/photo_upload" class="form-profile_pic" 
-        method="POST" enctype="multipart/form-data">
-            <p><input type="file" name="file">
-            <input type="submit" value="Upload">
-            </p>
-        </form>
-    {% endif %}
-<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button></h3>
-</form>
+  <head>
 
-  <!--<form action= "/book" class="form-instagram" method="GET">
-  <link rel="stylesheet" href="/static/css/style.css" />-->
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js' 
-  type='text/javascript' charset='utf-8'></script>
-  <script type="text/javascript" src="/static/instagram.js"></script>
-
-  <script>
-    var nickname_tags = [];
-
-    {% for nickname in nicknames %}
-      nickname_tags.push('{{ nickname }}'.toLowerCase());
-    {% endfor %}
-
-    Instagram.search(nickname_tags);
-  </script>
-  <div id='photos-wrap'></div>
-  </div>
     <style>
       .full-screen-image {
         background-size: cover;
@@ -89,7 +54,6 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div>
-  </body>
-</head>
+
+</body>
 </html>
-{% endblock %}

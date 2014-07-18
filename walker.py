@@ -11,9 +11,6 @@ app.config['UPLOAD_FOLDER'] = "/Users/Malina/src/walker_webapp/static/img"
 def land():
     return render_template("landing.html")
 
-@app.route("/register")
-def view_form():
-    return render_template("form.html")
 
 @app.route("/login", methods=['GET'])
 def login():
@@ -29,6 +26,10 @@ def login_post():
         return resp
     else:
         return redirect('/login')
+
+@app.route("/register")
+def view_form():
+    return render_template("form.html")
 
 @app.route("/register", methods=['POST'])
 def register():
