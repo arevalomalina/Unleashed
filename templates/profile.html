@@ -4,7 +4,6 @@
 <head>
   <body>
     <h2>{{ display_user.first_name }} {{ display_user.last_name }}</h2>
-    <form action= "/book" class="form-profile" method="GET">
     {% if display_user.profile_pic %}
         <div><img width=200 height=200 src = "/static/img/{{display_user.profile_pic}} "></div>
     {% else %}
@@ -16,7 +15,8 @@
             </p>
         </form>
     {% endif %}
-<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button></h3>
+    <form action= "/book" class="form-profile" method="GET">
+      <button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button>
 </form>
 
   <!--<form action= "/book" class="form-instagram" method="GET">
