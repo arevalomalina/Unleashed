@@ -6,20 +6,21 @@ var my_tags = [];
 (function(){
 
   function filter_by_tag(photos){
-    var money_shots=[];
+    var dog_photos=[];
     $.each(photos.data, function(index, photo){
       try {
         for (i=0; i<photo.tags.length; i++) {
           console.log(photo.tags[i]);
-          if (my_tags.indexOf(photo.tags[i]) >= 0 && money_shots.indexOf(photo) === -1) {
-            money_shots.push(photo);
+          if (my_tags.indexOf(photo.tags[i]) >= 0 && dog_photos.indexOf(photo) === -1) {
+            dog_photos.push(photo);
           }
         }
       } catch(err) {
-        console.warn("photo won't load", photo.images.low_resolution.url);
+        console.warn("photo won't load", photo.images.standard_resolution.url);
       }
     })
-    toScreen(money_shots);
+     
+    toScreen(dog_photos);
   }
 
 
@@ -29,15 +30,25 @@ var my_tags = [];
       // Undefined function toTemplate, takes
       // the photo object and returns markup
       // ready for display.
-      try{ 
-        photo_html = "<img width=200 height= 200 border=100 black src='"+ photo.images.low_resolution.url + "' />";
-        $('div#photos-wrap').append(photo_html);
+      if (index === 0) {
+      try{
+        $('div.carousel-inner').append('<div class="item active"><img src='+ photo.images.standard_resolution.url + ' alt="Dog 1"></div>');
+  
       }catch(err){
-        console.warn("photo won't load", photo.images.low_resolution.url);
+        console.warn("photo won't load", photo.images.standard_resolution.url);
+      }
+    }
+      else {
+    try{
+        $('div.carousel-inner').append('<div class="item"><img class="full-screen-image" src='+ photo.images.standard_resolution.url + ' alt="Dog 1"></div>');
+  
+      }catch(err){
+        console.warn("photo won't load", photo.images.standard_resolution.url);
       }
 
-
+      }
     });
+    $('.carousel').carousel();
   }
 
   function search(tags){

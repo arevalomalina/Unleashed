@@ -81,10 +81,24 @@ div.cart {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-3
+
 }
 div#blackout-screen {
   background-color: rgba(64, 64, 64, 0.5);
+}
+
+div.c-wrapper{
+    width: 100%; /* for example */
+
+    margin: auto;
+}
+
+.carousel-inner > .item > img, 
+.carousel-inner > .item > a > img{
+width: 80%;
+max-height: 600px;
+ /* use this, or not */
+margin: auto;
 }
 
 /*  width: 100%;

@@ -17,6 +17,14 @@
     {% endif %}
     <form action= "/book" class="form-profile" method="GET">
       <button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button>
+    <h3>Upcoming Appointments</h3>
+    {% for future_appointment in display_user.sorted_appointments()[0] %}
+      {{ future_appointment.date }}
+    {% endfor %}
+    <h3>Past Appointments</h3>
+    {% for future_appointment in display_user.sorted_appointments()[1] %}
+      {{ future_appointment.date }}
+    {% endfor %}
 </form>
 
   <!--<form action= "/book" class="form-instagram" method="GET">
@@ -53,32 +61,14 @@
 
 <div id="carousel-example-generic" class="carousel slide " data-ride="carousel">
   <!-- Indicators -->
-  <ol class="carousel-indicators">
+  <!--<ol class="carousel-indicators">
     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
     <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-  </ol>
+  </ol>-->
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-    <div class="item active">
-      <img class="full-screen-image" src="/static/img/carousel_dog1.jpg" alt="Dog 1">
-      <div class="carousel-caption">
-        Dog 1
-      </div>
-    </div>
-    <div class="item">
-      <img class="full-screen-image" src="/static/img/dogs_wallpaper479.jpg" alt="Dog 2">
-      <div class="carousel-caption">
-        Dog 2
-      </div>
-    </div>
-    <div class="item">
-      <img class="full-screen-image" src="/static/img/carousel_dog3.jpg" alt="Dog 3">
-      <div class="carousel-caption">
-        Dog 3
-      </div>
-    </div>
+
   </div>
 
   <!-- Controls -->

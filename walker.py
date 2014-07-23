@@ -4,6 +4,8 @@ import hashlib
 import datetime, os
 import stripe
 import jinja2
+from flask_wtf import Form
+import form_validation
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "/Users/Malina/src/walker_webapp/static/img"
@@ -29,8 +31,22 @@ def login_post():
 
 @app.route("/register")
 def view_form():
-    return render_template("form.html")
+    form = form_validation.RegistrationForm()
+    print form
+    print dir(form)
+    return render_template("form.html", form = form)
 
+"""@app.route('/register', methods=['POST'])
+def register():
+    form = form_validation.RegistrationForm(request.form)
+    print form.validate()
+    if form.validate():
+        print "success"
+        return render_template('index.html')
+    else:
+        return render_template('newform.html', form=form)
+
+"""
 @app.route("/register", methods=['POST'])
 def register():
     print request.form
@@ -63,20 +79,30 @@ def register():
     model.session.add(user_dog)
     model.session.commit()
 
-    return redirect('/login')
-    
+    return redirect('/login') 
+
 @app.route('/book', methods=['GET'])
 def appointment_form():
     return render_template("calendar.html")
 
 @app.route('/book', methods=['POST'])
 def appointment_book():
+    print request.form
     d = request.form['date']
     mydate = datetime.datetime.strptime(d, "%Y-%m-%d")
     new_appt = model.Appointment(date=mydate,
-                                time_slot=request.form['time_slots'])
+                                time_slot=request.form['time_slots'], 
+                                recurring=request.form['repeat'])
 
     model.session.add(new_appt)
+    model.session.commit()
+
+    user_id = request.cookies.get('user_id')
+    user_dogs = model.session.query(model.User_Dog).filter_by(user_id=user_id)
+
+    dog_appt = model.Dog_Appointment(appointment_id = new_appt.id, dog_id = user_dogs[0].dog_id )
+
+    model.session.add(dog_appt)
     model.session.commit()
     return redirect('/payment')
 
@@ -112,10 +138,12 @@ def user_profile():
         for user_dog in user_dogs:
             dog = model.session.query(model.Dog).get(user_dog.dog_id)
             nicknames.append(dog.nickname)
+            
 
         return render_template('profile.html', display_user = user, nicknames = nicknames)
     else:
-        redirect('/login')
+        return redirect('/login')
+
 
 @app.route('/photo_upload', methods=['POST'])
 def send_photo():
@@ -138,6 +166,7 @@ def sha1(str):
     sha1 = hashlib.sha1()
     sha1.update(str)
     return sha1.hexdigest()
+
 
 if __name__=="__main__":
     app.run(debug = True)

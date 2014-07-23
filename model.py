@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy.orm import relationship, backref
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -30,14 +32,36 @@ class User(Base):
     password = Column(String(64), nullable=False)
     profile_pic = Column(String(64), nullable=True)
 
+    def appointments(self):
+        appointments=[]
+        for user_dog in self.user_dogs:
+            appt = session.query(Dog_Appointment).filter_by(dog_id=user_dog.dog_id).all()
+            appointments.append(appt)
+        return appointments
+    #filter based on dog appointments.
+
+    def sorted_appointments(self):
+        future_appointments = []
+        past_appointments = []
+        today = datetime.date.today()
+        for user_dog in self.user_dogs:
+            dog_appts = session.query(Dog_Appointment).filter_by(dog_id=user_dog.dog_id).all()
+            for dog_appt in dog_appts:
+                if dog_appt.appointment.date >= today:
+                    future_appointments.append(dog_appt.appointment)
+                else:
+                    past_appointments.append(dog_appt.appointment)
+        return future_appointments, past_appointments
+
+
 class Appointment(Base):
     __tablename__ = "appointments"
 
     id = Column(Integer, primary_key =True)
     date = Column(Date, nullable=False)
     time_slot = Column(String(64), nullable=False)
+    recurring = Column(String(64), nullable=False)
 
-    """not completely sure what information I need to collect here."""
 
 class Dog(Base):
     __tablename__ = "dogs"
@@ -97,6 +121,7 @@ class Payment(Base):
 
     id = Column(Integer, primary_key=True)
 
+
 '''def connect():
     global ENGINE
     global Session
@@ -113,6 +138,11 @@ def update_profile_pic(filename, user_id):
     user = session.query(User).get(user_id)
     user.profile_pic = filename
     session.commit()
+
+def get_appt_by_dog_id(id):
+    """Query database for an appointment by dog_id"""
+    appt = session.query(Dog_Appointment).get(id)
+
 
 
 ### End class declarations

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block body %}
-<html>
   <head>
       <script type="text/javascript" src="/static/prototype.js"></script>
       <script type="text/javascript" src="/static/calendarview.js"></script>
@@ -20,15 +19,16 @@
     <input type="text" name="date" id="date" />
     <input type="button" id="calendarButton" value="Choose Date"/>
     </div>
-    <h3>Choose Time Slot</h3>
-<select name="time_slots">
-<option value="morning">Morning</option>
-<option value="midday">Midday</option>
-<option value="afternoon">Afternoon</option>
-</select>
-<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button></h3>
-</form>
+      <h3>Choose Time Slot</h3>
+        <select name="time_slots">
+          <option value="morning">Morning</option>
+          <option value="midday">Midday</option>
+          <option value="afternoon">Afternoon</option>
+        </select>
+      <h3>Repeat</h3>
+            <input type="radio" name="repeat" value="true">Yes<br>
+            <input type="radio" name="repeat" value="false">No<br> 
+      <h3><button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button></h3>
+    </form>
 </body>
-</form>
-</html>
 {% endblock %}
