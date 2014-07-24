@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, render_template, redirect, request, make_response
 import model
 import hashlib
@@ -89,10 +90,14 @@ def appointment_form():
 def appointment_book():
     print request.form
     d = request.form['date']
+    recurring_boolean = request.form['repeat'] == 'True'
+    print request.form['repeat']
+    #if line 93 is true is will return the bool True otherwise will return bool False
     mydate = datetime.datetime.strptime(d, "%Y-%m-%d")
     new_appt = model.Appointment(date=mydate,
-                                time_slot=request.form['time_slots'], 
-                                recurring=request.form['repeat'])
+                                time_slot=request.form['time_slots'],
+                                recurring=recurring_boolean) 
+                                
 
     model.session.add(new_appt)
     model.session.commit()
@@ -104,7 +109,16 @@ def appointment_book():
 
     model.session.add(dog_appt)
     model.session.commit()
+
     return redirect('/payment')
+
+#testing to see if I get the right dates.
+    user_dogs = session.query(model.User_Dog)
+    for user_dog in user_dogs:
+        dog_appts = session.query(Dog_Appointment).filter_by(dog_id=user_dog.dog_id).all()
+        for dog_appt in dog_appts:
+            print dog_appt.appointment.date
+
 
 @app.route('/payment', methods=['GET'])
 def get_card():
