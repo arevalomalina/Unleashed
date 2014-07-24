@@ -62,6 +62,18 @@ class Appointment(Base):
     time_slot = Column(String(64), nullable=False)
     recurring = Column(Boolean, nullable=False)
 
+'''def full_booking(mydate, request.form['time_slots'], recurring_boolean, new_appt.id, user_dogs[0].dog_id)
+     new_appt = model.Appointment(date=mydate,
+                                time_slot=request.form['time_slots'],
+                                recurring=recurring_boolean) 
+
+    dog_appt = model.Dog_Appointment(appointment_id = new_appt.id, dog_id = user_dogs[0].dog_id )
+
+    model.session.add(new_appt)
+    model.session.add(dog_appt)
+    session.commit()'''
+
+
 
 class Dog(Base):
     __tablename__ = "dogs"

@@ -88,12 +88,16 @@ def appointment_form():
 
 @app.route('/book', methods=['POST'])
 def appointment_book():
-    print request.form
     d = request.form['date']
-    recurring_boolean = request.form['repeat'] == 'True'
-    print request.form['repeat']
-    #if line 93 is true is will return the bool True otherwise will return bool False
     mydate = datetime.datetime.strptime(d, "%Y-%m-%d")
+    recurring_boolean = request.form['repeat'] == 'True'
+    #if line 93 is true is will return the bool True otherwise will return bool False
+
+    user_id = request.cookies.get('user_id')
+    user_dogs = model.session.query(model.User_Dog).filter_by(user_id=user_id)
+    user_dog_id = user_dogs[0].dog_id
+
+
     new_appt = model.Appointment(date=mydate,
                                 time_slot=request.form['time_slots'],
                                 recurring=recurring_boolean) 
@@ -102,8 +106,6 @@ def appointment_book():
     model.session.add(new_appt)
     model.session.commit()
 
-    user_id = request.cookies.get('user_id')
-    user_dogs = model.session.query(model.User_Dog).filter_by(user_id=user_id)
 
     dog_appt = model.Dog_Appointment(appointment_id = new_appt.id, dog_id = user_dogs[0].dog_id )
 
