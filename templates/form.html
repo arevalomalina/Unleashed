@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<html>
 <form action= "/register" class="form-signin" method="POST">
     <h2 class="form-signin-heading">Please Sign Up</h2>
     	<h3> Your Information </h3>
@@ -15,12 +14,15 @@
     		<input name= "Password" type="password" class="form-control" placeholder="Password"/>
 
     	<h3> Your Dog's Information </h3>
-    		<input name="Dog_Name" type="text" class="form-control" placeholder="Dog Name"/>
-    		<input name="Dog_Breed" type="text" class="form-control" placeholder="Dog Breed"/>
-    		<input name="Age" type="text" class="form-control" placeholder="Age"/>
-    		<input name="Gender" type="text" class="form-control" placeholder="Gender"/>
-    		<input name="Weight" type="text" class="form-control" placeholder="Weight"/>
-            <input name="Nickname" type="text" class="form-control" placeholder="Nickname"/>  
+            <input name="Dog_Name" type="text" class="form-control" placeholder="Dog Name"/>
+            <input name="Dog_Breed" type="text" class="form-control" placeholder="Dog Breed"/>
+            <input name="Age" type="text" class="form-control" placeholder="Age"/>
+            <input name="Gender" type="text" class="form-control" placeholder="Gender"/>
+            <input name="Weight" type="text" class="form-control" placeholder="Weight"/>
+            <input name="Nickname" type="text" class="form-control" placeholder="Nickname"/>
+
+            <div id = "additional-dog"></div> 
+            <h3><button id="add-dog-btn" type="btn btn-lg btn-primary btn-block" type="button">Add Another Dog</button></h3>
 
     	<h3>Vet's Information</h3>
     		<input name="vet_name_first" type="text" class="form-control" placeholder="First Name"/>
@@ -30,6 +32,23 @@
 
 		<h3><button type="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button></h3>
 </form>
-</html>
+
+<script>
+var dog_count = 1;
+$('#add-dog-btn').click(function(e){
+    e.preventDefault();
+    dog_count++;
+    console.log('clicked! dog count: ' + dog_count);
+    $('#additional-dog').append('<h3> Next Dog\'s Information </h3>');
+    $('#additional-dog').append('<input name="Dog_Name' + dog_count + '" type="text" class="form-control" placeholder="Dog Name"/>');
+    $('#additional-dog').append('<input name="Dog_Breed' + dog_count + '" type="text" class="form-control" placeholder="Dog Breed"/>');
+    $('#additional-dog').append('<input name="Age' + dog_count + '" type="text" class="form-control" placeholder="Age"/>');
+    $('#additional-dog').append('<input name="Gender' + dog_count + '" type="text" class="form-control" placeholder="Gender"/>');
+    $('#additional-dog').append('<input name="Weight' + dog_count + '" type="text" class="form-control" placeholder="Weight"/>');
+    $('#additional-dog').append('<input name="Nickname' + dog_count + '" type="text" class="form-control" placeholder="Nickname"/>');
+
+
+});
+</script>
 
 {% endblock %}
