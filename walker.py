@@ -50,7 +50,6 @@ def register():
 """
 @app.route("/register", methods=['POST'])
 def register():
-    print request.form
     new_user = model.User(first_name=request.form['First_Name'], 
                         last_name=request.form['Last_Name'], 
                         telephone=request.form['Phone'],
@@ -59,25 +58,27 @@ def register():
                         ICE_phone=request.form['ICE_Phone'],
                         email=request.form['Email'],
                         password=sha1(request.form["Password"]))
-
-    new_dog = model.Dog(name=request.form['Dog_Name'],
-                        breed=request.form['Dog_Breed'],
-                        age=request.form['Age'],
-                        gender=request.form['Gender'],
-                        weight=request.form['Weight'],
-                        nickname=request.form['Nickname'])
-
-    new_vet = model.Veterinarian(first_name=request.form['vet_name_first'],
-                                last_name=request.form['vet_name_last'],
-                                address=request.form['address'],
-                                telephone=request.form['telephone'])
-
-    user_dog = model.User_Dog(dog=new_dog, user=new_user)
-
     model.session.add(new_user)
-    model.session.add(new_dog)
-    model.session.add(new_vet)
-    model.session.add(user_dog)
+
+    counter = 1
+    while True:
+        if 'Dog_Name%s' % counter in request.form:
+            new_dog = model.Dog(name=request.form['Dog_Name%s' %counter],
+                breed=request.form['Dog_Breed%s' %counter ],
+                age=request.form['Age%s' %counter],
+                gender=request.form['Gender%s' %counter],
+                weight=request.form['Weight%s' %counter],
+                nickname=request.form['Nickname%s' %counter])
+
+            user_dog = model.User_Dog(dog=new_dog, 
+                                    user=new_user)
+
+            model.session.add(user_dog)
+            model.session.add(new_dog)
+            counter +=1 
+        else:
+            break
+
     model.session.commit()
 
     return redirect('/login') 
