@@ -130,8 +130,10 @@ def get_card():
 @app.route('/payment', methods=['POST'])
 def payment():
 
+    total_payment = len(model.session.query(model.Appointment).filter_by(payment_id=None).all()) * 2600
+
     new_payment = model.Payment(payment_date=datetime.datetime.today(),
-                                payment_amount=2600)
+                                payment_amount=total_payment)
 
     model.session.add(new_payment)
     model.session.commit()
@@ -152,8 +154,6 @@ def payment():
   # The card has been declined
         pass
     return redirect('/profile')
-
-    #this_payment = the number of appointments * 2600
 
 @app.route('/profile')
 def user_profile():
