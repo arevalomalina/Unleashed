@@ -61,6 +61,10 @@ class Appointment(Base):
     date = Column(Date, nullable=False)
     time_slot = Column(String(64), nullable=False)
     recurring = Column(Boolean, nullable=False)
+    payment_id= Column(Integer, nullable=True)
+
+    payment = relationship("Payment",
+        backref=backref("appointments", order_by=id))
 
 '''def full_booking(mydate, request.form['time_slots'], recurring_boolean, new_appt.id, user_dogs[0].dog_id)
      new_appt = model.Appointment(date=mydate,

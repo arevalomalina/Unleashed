@@ -20,6 +20,8 @@
     <head>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/static/css/style.css" />
+        <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        {% block head %}{% endblock %}
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-static-top">
@@ -46,7 +48,7 @@
             {% endwith %}
             
         </div>
- <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+ 
 {% block body %}
 {% endblock %}
 

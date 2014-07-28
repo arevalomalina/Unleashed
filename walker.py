@@ -129,9 +129,9 @@ def get_card():
 
 @app.route('/payment', methods=['POST'])
 def payment():
-    stripe.api_key = ""
+    stripe.api_key = "sk_test_4UEKhN2p6DLJxhYU5fCgu1Pg"
     token = request.form.get('stripeToken')
-
+    
     try:
         charge = stripe.Charge.create(
             amount=1000, # amount in cents, again
