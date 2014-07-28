@@ -61,23 +61,10 @@ class Appointment(Base):
     date = Column(Date, nullable=False)
     time_slot = Column(String(64), nullable=False)
     recurring = Column(Boolean, nullable=False)
-    payment_id= Column(Integer, nullable=True)
+    payment_id= Column(Integer, ForeignKey('payments.id'))
 
     payment = relationship("Payment",
         backref=backref("appointments", order_by=id))
-
-'''def full_booking(mydate, request.form['time_slots'], recurring_boolean, new_appt.id, user_dogs[0].dog_id)
-     new_appt = model.Appointment(date=mydate,
-                                time_slot=request.form['time_slots'],
-                                recurring=recurring_boolean) 
-
-    dog_appt = model.Dog_Appointment(appointment_id = new_appt.id, dog_id = user_dogs[0].dog_id )
-
-    model.session.add(new_appt)
-    model.session.add(dog_appt)
-    session.commit()'''
-
-
 
 class Dog(Base):
     __tablename__ = "dogs"
@@ -136,6 +123,8 @@ class Payment(Base):
     __tablename__ = "payments"
 
     id = Column(Integer, primary_key=True)
+    payment_date = Column(Date, nullable=False)
+    payment_amount = Column(Integer, nullable=False)
 
 
 '''def connect():

@@ -129,9 +129,17 @@ def get_card():
 
 @app.route('/payment', methods=['POST'])
 def payment():
+
+    new_payment = model.Payment(payment_date=datetime.datetime.today(),
+                                payment_amount=2600)
+
+    model.session.add(new_payment)
+    model.session.commit()
+
+
     stripe.api_key = "sk_test_4UEKhN2p6DLJxhYU5fCgu1Pg"
     token = request.form.get('stripeToken')
-    
+
     try:
         charge = stripe.Charge.create(
             amount=1000, # amount in cents, again
@@ -143,7 +151,9 @@ def payment():
         return "error"
   # The card has been declined
         pass
-    return "success"
+    return redirect('/profile')
+
+    #this_payment = the number of appointments * 2600
 
 @app.route('/profile')
 def user_profile():
