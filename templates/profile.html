@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
-
+  <div class="panel panel-default">
+  <div class="panel-body">
     <h2>{{ display_user.first_name }} {{ display_user.last_name }}</h2>
     {% if display_user.profile_pic %}
         <div><img width=200 height=200 src = "/static/img/{{display_user.profile_pic}} "></div>
@@ -13,6 +14,8 @@
             </p>
         </form>
     {% endif %}
+    </div>
+    </div>
     <form action= "/book" class="form-profile" method="GET">
       <button type="btn btn-lg btn-primary btn-block" type="submit">Book Now</button>
     <h3>Upcoming Appointments</h3>
@@ -40,6 +43,8 @@
 
     Instagram.search(nickname_tags);
   </script>
+  <div class="panel panel-default">
+  <div class="panel-body">
   <div id='photos-wrap'></div>
   </div>
     <style>
@@ -77,5 +82,17 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div>
+  </div>
+</div>
+
+
+<!--
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+      <img data-src="holder.js/100%x180" alt="what is this?">
+    </a>
+  </div>
+</div>-->
 
 {% endblock %}

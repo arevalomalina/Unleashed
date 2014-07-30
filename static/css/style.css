@@ -1,8 +1,4 @@
 
-div.melon-summary img {
-    width: 200px;
-}
-
 div.navbar-header img {
     width: 30px;
     float: left;
@@ -10,30 +6,8 @@ div.navbar-header img {
     margin-right: 10px;
 }
 
-div.melon-summary {
-    display: inline-block;
-
-    width: 300px;
-    vertical-align: top;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    padding-left: 10px;
-    padding-bottom: 20px;
-}
-
 li.warning {
     color: red;
-}
-
-img.product-img {
-    display: inline-block;
-    max-width: 400px;
-}
-
-div.cart {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 30px;
 }
 
 .form-instagram {
@@ -95,10 +69,10 @@ div.c-wrapper{
 
 .carousel-inner > .item > img, 
 .carousel-inner > .item > a > img{
-max-width: 80%;
+max-width: 150%;
 max-height: 575px;
  /* use this, or not */
-margin: auto;
+margin: 0 auto;
 }
 
 /*  width: 100%;
@@ -106,3 +80,6 @@ margin: auto;
   position: fixed;
   top: 0px;
   left: 0px;*/
+.dropdown {
+  postion:relative;
+}
