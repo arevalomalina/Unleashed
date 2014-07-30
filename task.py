@@ -1,3 +1,4 @@
+import sendgrid
 import datetime
 from flask.ext.script import Manager
 
@@ -44,10 +45,18 @@ def appointment_maker():
         model.session.add(dog_appt)
         model.session.commit()
 
+@manager.command
+def send_payment_reminder():
+    sg = sendgrid.SendGridClient('arevalomalina', 'fearles5')
 
-    #for dog_appointment in dog_appointments:
-        #print dog_appointment.id
-
+    message = sendgrid.Mail()
+    message.add_to('John Doe <bellainthesky@gmail.com>')
+    message.set_subject('Example')
+    message.set_html('Body')
+    message.set_text('Body')
+    message.set_from('Doe John <arevalomalina@gmail.com')
+    status, msg = sg.send(message)
+    print "GOT HERE"
 
     
 
