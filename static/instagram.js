@@ -57,7 +57,7 @@ var my_tags = [];
 
     var malina_id = '12764357';
     var ida_id = '180860648';
-    var id_to_use = malina_id;
+    var id_to_use = ida_id;
 
     var url = "https://api.instagram.com/v1/users/" + id_to_use + "/media/recent?callback=?&client_id=aaf7cad994bd4ef293ed4ab24f2f6627";
     //  + tag + "/media/recent?callback=?&client_id=aaf7cad994bd4ef293ed4ab24f2f6627";

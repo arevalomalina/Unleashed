@@ -11,13 +11,13 @@
 {% endblock %}
 {% block body %}
 <form action="/payment" method="POST" id="payment-form">
-  <input type="hidden" name="heybuddy" value="sofie">
+  <input type="hidden" name="Payment" value="{{ total_payment }}">
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="pk_test_4UELhUOOnnG5316O2PaHKhbY"
-    data-amount="2000"
+    data-amount="{{ total_payment }}"
     data-name="Demo Site"
-    data-description="2 widgets ($20.00)"
+    data-description="{{ total_appointments }} walks ${{ total_payment/100 }}0"
     data-image="/128x128.png">
   </script>
 </form>

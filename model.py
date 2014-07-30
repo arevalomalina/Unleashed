@@ -32,12 +32,16 @@ class User(Base):
     password = Column(String(64), nullable=False)
     profile_pic = Column(String(64), nullable=True)
 
-    def appointments(self):
+    def unpaid_appointments(self):
         appointments=[]
         for user_dog in self.user_dogs:
-            appt = session.query(Dog_Appointment).filter_by(dog_id=user_dog.dog_id).all()
-            appointments.append(appt)
+            dog_appts = session.query(Dog_Appointment).filter_by(dog_id=user_dog.dog_id).all()
+            for dog_appt in dog_appts:
+                appt = dog_appt.appointment
+                if appt.payment_id == None:
+                    appointments.append(appt)
         return appointments
+
     #filter based on dog appointments.
 
     def sorted_appointments(self):

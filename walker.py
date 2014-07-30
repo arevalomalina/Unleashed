@@ -122,29 +122,28 @@ def appointment_book():
         for dog_appt in dog_appts:
             print dog_appt.appointment.date
 
-
 @app.route('/payment', methods=['GET'])
 def get_card():
-    return render_template("payment.html")
+    user_id = request.cookies.get('user_id')
+    user = model.get_user_by_id(user_id)
+
+    appointments = user.unpaid_appointments()
+
+    total_appointments = len(appointments)
+
+    total_payment = total_appointments * 2600
+
+    return render_template("payment.html", total_appointments=total_appointments, total_payment=total_payment)
 
 @app.route('/payment', methods=['POST'])
 def payment():
-
-    total_payment = len(model.session.query(model.Appointment).filter_by(payment_id=None).all()) * 2600
-
-    new_payment = model.Payment(payment_date=datetime.datetime.today(),
-                                payment_amount=total_payment)
-
-    model.session.add(new_payment)
-    model.session.commit()
-
-
+    total_payment = request.form.get('Payment')
     stripe.api_key = "sk_test_4UEKhN2p6DLJxhYU5fCgu1Pg"
     token = request.form.get('stripeToken')
 
     try:
         charge = stripe.Charge.create(
-            amount=1000, # amount in cents, again
+            amount=total_payment, # amount in cents, again
             currency="usd",
             card=token,
             description="payinguser@example.com")
@@ -154,6 +153,22 @@ def payment():
   # The card has been declined
         pass
     return redirect('/profile')
+
+    user_id = request.cookies.get('user_id')
+    user = model.get_user_by_id(user_id)
+
+    new_payment = model.Payment(payment_date=datetime.datetime.today(),
+                                payment_amount=total_payment)
+
+    model.session.add(new_payment)
+    model.session.commit()
+
+    appointments = user.unpaid_appointments()
+    for appointment in appointments:
+        appointment.payment = new_payment
+
+        model.session.add(appointment)
+        model.session.commit()
 
 @app.route('/profile')
 def user_profile():
