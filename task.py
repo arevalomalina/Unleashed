@@ -62,7 +62,7 @@ def send_payment_reminder():
 
         message = sendgrid.Mail(to=user.email, 
                             subject='Payment Reminder', 
-                            html='Hi ' + user.first_name + ' Thanks for using SF City Dog Walks. Your bill of $%s0 is due.' %total_payment, 
+                            html='Hi ' + user.first_name + ' Thanks for using SF City Dog Walks. Your bill of $%s0 is due.' %total_payment + ' <a href="localhost:5000/payment">Click here</a>' + ' to pay.', 
                             text='???', 
                             from_email='malina@hackbright.project')
         status, msg = sg.send(message)
