@@ -2,6 +2,7 @@ import sendgrid
 import os
 import datetime
 from flask.ext.script import Manager
+from flask import Flask, request
 
 from walker import app
 import model
@@ -50,20 +51,22 @@ def appointment_maker():
 def send_payment_reminder():
     sg_username = os.environ.get('SENDGRID_USERNAME')
     sg_password = os.environ.get('SENDGRID_PASSWORD')
-
     sg = sendgrid.SendGridClient(sg_username, sg_password)
 
-    query the database for all useres by 
-    message = sendgrid.Mail(to='user_email', 
-                            subject='Example', 
-                            html='Body', 
-                            text='Body', 
-                            from_email='doe@email.com')
-    status, msg = sg.send(message)
+    users = model.session.query(model.User).all()
+    for user in users:
+        user = model.get_user_by_id(user.id)
+        appointments = user.unpaid_appointments()
+        total_appointments = len(appointments)
+        total_payment = total_appointments * 26.00
 
-    print "GOT HERE"
+        message = sendgrid.Mail(to=user.email, 
+                            subject='Payment Reminder', 
+                            html='Hi ' + user.first_name + ' Thanks for using SF City Dog Walks. Your bill of $%s0 is due.' %total_payment, 
+                            text='???', 
+                            from_email='malina@hackbright.project')
+        status, msg = sg.send(message)
 
-    
 
 if __name__ == "__main__":
     manager.run()
