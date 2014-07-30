@@ -1,4 +1,5 @@
 import sendgrid
+import os
 import datetime
 from flask.ext.script import Manager
 
@@ -47,10 +48,13 @@ def appointment_maker():
 
 @manager.command
 def send_payment_reminder():
-    sg = sendgrid.SendGridClient('arevalomalina', 'fearles5')
+    sg_username = os.environ.get('SENDGRID_USERNAME')
+    sg_password = os.environ.get('SENDGRID_PASSWORD')
 
-    
-    message = sendgrid.Mail(to='bellainthesky@gmail.com', 
+    sg = sendgrid.SendGridClient(sg_username, sg_password)
+
+    query the database for all useres by 
+    message = sendgrid.Mail(to='user_email', 
                             subject='Example', 
                             html='Body', 
                             text='Body', 
