@@ -49,13 +49,14 @@ def appointment_maker():
 def send_payment_reminder():
     sg = sendgrid.SendGridClient('arevalomalina', 'fearles5')
 
-    message = sendgrid.Mail()
-    message.add_to('John Doe <bellainthesky@gmail.com>')
-    message.set_subject('Example')
-    message.set_html('Body')
-    message.set_text('Body')
-    message.set_from('Doe John <arevalomalina@gmail.com')
+    
+    message = sendgrid.Mail(to='bellainthesky@gmail.com', 
+                            subject='Example', 
+                            html='Body', 
+                            text='Body', 
+                            from_email='doe@email.com')
     status, msg = sg.send(message)
+
     print "GOT HERE"
 
     
