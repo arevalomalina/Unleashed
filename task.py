@@ -6,6 +6,7 @@ from flask import Flask, request
 
 from walker import app
 import model
+from twilio.rest import TwilioRestClient
 
 manager = Manager(app)
 
@@ -53,20 +54,45 @@ def send_payment_reminder():
     sg_password = os.environ.get('SENDGRID_PASSWORD')
     sg = sendgrid.SendGridClient(sg_username, sg_password)
 
-    users = model.session.query(model.User).all()
-    for user in users:
-        user = model.get_user_by_id(user.id)
-        appointments = user.unpaid_appointments()
-        total_appointments = len(appointments)
-        total_payment = total_appointments * 26.00
-
+    for user in get_past_due_users():
         message = sendgrid.Mail(to=user.email, 
                             subject='Payment Reminder', 
-                            html='Hi ' + user.first_name + ' Thanks for using SF City Dog Walks. Your bill of $%s0 is due.' %total_payment + ' <a href="localhost:5000/payment">Click here</a>' + ' to pay.', 
-                            text='???', 
+                            html=get_message_for_user(user, html=True), 
+                            text=get_message_for_user(user, html=False), 
                             from_email='malina@hackbright.project')
         status, msg = sg.send(message)
 
+@manager.command
+def send_text_reminder():
+
+    account = "AC98219002f598f68692de0a632d15568f"
+    token = "4dc519054f2eaa118e79b2f897837956"
+    client = TwilioRestClient(account, token)
+
+    try:
+        for user in get_past_due_users():
+            message = client.messages.create(
+                to="+1"+user.telephone,
+                from_="+16173402844",
+                body=get_message_for_user(user, html=False)
+            )
+    except Exception as e:
+        print e
+
+def get_past_due_users():
+    users = model.session.query(model.User).all()
+    for user in users:
+        user = model.get_user_by_id(user.id)
+        if user.total_payment() != 0:
+            yield user
+
+def get_message_for_user(user, html):
+    if html:
+        url = ' <a href="localhost:5000/payment">Click here</a>'
+    else:
+        url = ' Visit http://localhost:5000/payment'
+
+    return 'Hi ' + user.first_name + ' Thanks for using SF City Dog Walks. Your bill of $%s0 is due.' % user.total_payment() + url + ' to pay.'
 
 if __name__ == "__main__":
     manager.run()

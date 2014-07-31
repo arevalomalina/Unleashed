@@ -57,6 +57,11 @@ class User(Base):
                     past_appointments.append(dog_appt.appointment)
         return future_appointments, past_appointments
 
+    def total_payment(self):
+        appointments = self.unpaid_appointments()
+        total_appointments = len(appointments)
+        return total_appointments * 26.00
+
 
 class Appointment(Base):
     __tablename__ = "appointments"

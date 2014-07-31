@@ -1,4 +1,3 @@
-import datetime
 from flask import Flask, render_template, redirect, request, make_response
 import model
 import hashlib
@@ -108,7 +107,8 @@ def appointment_book():
     model.session.commit()
 
 
-    dog_appt = model.Dog_Appointment(appointment_id = new_appt.id, dog_id = user_dogs[0].dog_id )
+    dog_appt = model.Dog_Appointment(appointment_id = new_appt.id, 
+                                    dog_id = user_dogs[0].dog_id )
 
     model.session.add(dog_appt)
     model.session.commit()
