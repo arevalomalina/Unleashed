@@ -32,7 +32,7 @@ var my_tags = [];
       // ready for display.
       if (index === 0) {
       try{
-        $('div.carousel-inner').append('<div class="item active"><img src='+ photo.images.standard_resolution.url + ' alt="Dog 1"></div>');
+        $('div.carousel-inner').append('<div class="item active"><img width=750 src='+ photo.images.standard_resolution.url + ' alt="Dog 1"></div>');
   
       }catch(err){
         console.warn("photo won't load", photo.images.standard_resolution.url);
@@ -40,7 +40,7 @@ var my_tags = [];
     }
       else {
     try{
-        $('div.carousel-inner').append('<div class="item"><img class="full-screen-image" src='+ photo.images.standard_resolution.url + ' alt="Dog 1"></div>');
+        $('div.carousel-inner').append('<div class="item"><img width=800 class="full-screen-image" src='+ photo.images.standard_resolution.url + ' alt="Dog 1"></div>');
   
       }catch(err){
         console.warn("photo won't load", photo.images.standard_resolution.url);

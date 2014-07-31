@@ -82,6 +82,14 @@ def register():
 
     return redirect('/login') 
 
+@app.route('/consultation_form')
+def show_pdf():
+    return render_template('consultation_pdf.html')
+
+@app.route('/consultation')
+def book_consultation():
+    return render_template('consultation.html')
+
 @app.route('/book', methods=['GET'])
 def appointment_form():
     return render_template("calendar.html")

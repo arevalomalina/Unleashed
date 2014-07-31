@@ -23,8 +23,7 @@ li.warning {
 }
 .form-signin {
   max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+  padding: 15px 0;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -69,10 +68,10 @@ div.c-wrapper{
 
 .carousel-inner > .item > img, 
 .carousel-inner > .item > a > img{
-max-width: 150%;
+max-width: 80%;
 max-height: 575px;
  /* use this, or not */
-margin: 0 auto;
+margin: auto;
 }
 
 /*  width: 100%;
