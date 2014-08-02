@@ -8,7 +8,7 @@ from flask_wtf import Form
 import form_validation
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = "/Users/Malina/src/walker_webapp/static/img"
+app.config['UPLOAD_FOLDER'] = "/Users/Malina/src/unleashed_webapp/static/img"
 @app.route("/")
 def land():
     return render_template("landing.html")
@@ -80,15 +80,12 @@ def register():
 
     model.session.commit()
 
-    return redirect('/login') 
+    return redirect('/legalform') 
 
-@app.route('/consultation_form')
+@app.route('/legalform')
 def show_pdf():
-    return render_template('consultation_pdf.html')
+    return render_template('legalform.html')
 
-@app.route('/consultation')
-def book_consultation():
-    return render_template('consultation.html')
 
 @app.route('/book', methods=['GET'])
 def appointment_form():
@@ -105,12 +102,11 @@ def appointment_book():
     user_dogs = model.session.query(model.User_Dog).filter_by(user_id=user_id)
     user_dog_id = user_dogs[0].dog_id
 
-
+    #appointment and dog appointment could be placed in helper functions.
     new_appt = model.Appointment(date=mydate,
                                 time_slot=request.form['time_slots'],
                                 recurring=recurring_boolean) 
                                 
-
     model.session.add(new_appt)
     model.session.commit()
 
@@ -122,13 +118,6 @@ def appointment_book():
     model.session.commit()
 
     return redirect('/payment')
-
-#testing to see if I get the right dates.
-    user_dogs = session.query(model.User_Dog)
-    for user_dog in user_dogs:
-        dog_appts = session.query(Dog_Appointment).filter_by(dog_id=user_dog.dog_id).all()
-        for dog_appt in dog_appts:
-            print dog_appt.appointment.date
 
 @app.route('/payment', methods=['GET'])
 def get_card():
@@ -165,12 +154,14 @@ def payment():
     user_id = request.cookies.get('user_id')
     user = model.get_user_by_id(user_id)
 
+    #make this a helper function
     new_payment = model.Payment(payment_date=datetime.datetime.today(),
                                 payment_amount=total_payment)
 
     model.session.add(new_payment)
     model.session.commit()
 
+    #helper function
     appointments = user.unpaid_appointments()
     for appointment in appointments:
         appointment.payment = new_payment
@@ -216,7 +207,6 @@ def sha1(str):
     sha1 = hashlib.sha1()
     sha1.update(str)
     return sha1.hexdigest()
-
 
 if __name__=="__main__":
     app.run(debug = True)

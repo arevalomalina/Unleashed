@@ -4,7 +4,7 @@ import datetime
 from flask.ext.script import Manager
 from flask import Flask, request
 
-from walker import app
+from unleashed import app
 import model
 from twilio.rest import TwilioRestClient
 
@@ -64,10 +64,9 @@ def send_payment_reminder():
 
 @manager.command
 def send_text_reminder():
-
-    account = "AC98219002f598f68692de0a632d15568f"
-    token = "4dc519054f2eaa118e79b2f897837956"
-    client = TwilioRestClient(account, token)
+    tw_account = os.environ.get('TWILIO_ACCOUNT')
+    tw_token = os.environ.get('TWILIO_TOKEN')
+    client = TwilioRestClient(tw_account, tw_token)
 
     try:
         for user in get_past_due_users():

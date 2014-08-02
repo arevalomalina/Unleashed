@@ -8,7 +8,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Date, Boolean
 
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-engine = create_engine("sqlite:///walker.db", echo=False)
+engine = create_engine("sqlite:///unleashed.db", echo=False)
 session = scoped_session(sessionmaker(bind=engine,
                                         autocommit = False,
                                         autoflush = False))
